@@ -5,9 +5,13 @@ import com.edutech.progressive.entity.Patient;
 import java.util.List;
 
 public interface PatientDAO {
-    int addPatient(Patient patient);
-    Patient getPatientById(int patientId);
-    void updatePatient (Patient patient);
-    void deletePatient (int patientId);
-    List<Patient> getAllPatients();
+    public int addPatient(Patient patient);
+
+    public Patient getPatientById(int patientId);
+
+    public void updatePatient(Patient patient);
+
+    public void deletePatient(int patientId);
+
+    public List<Patient> getAllPatients();
 }

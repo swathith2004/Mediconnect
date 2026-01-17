@@ -4,36 +4,30 @@ import java.util.List;
 
 import com.edutech.progressive.entity.Clinic;
 
-public class ClinicDAOImpl implements ClinicDAO{
+public class ClinicDAOImpl implements ClinicDAO {
 
     @Override
     public int addClinic(Clinic clinic) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addClinic'");
+        return -1;
     }
 
     @Override
     public Clinic getClinicById(int clinicId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getClinicById'");
+        return null;
     }
 
     @Override
     public void updateClinic(Clinic clinic) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateClinic'");
     }
 
     @Override
     public void deleteClinic(int clinicId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteClinic'");
+
     }
 
     @Override
     public List<Clinic> getAllClinics() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllClinics'");
+        return null;
     }
 
 }

@@ -1,49 +1,17 @@
 package com.edutech.progressive.entity;
 
-public class Doctor {
-    public int getDoctorId() {
-        return doctorId;
-    }
-    public void setDoctorId(int doctorId) {
-        this.doctorId = doctorId;
-    }
+public class Doctor implements Comparable<Doctor>{
+
     private int doctorId;
-    public String getFullName() {
-        return fullName;
-    }
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
     private String fullName;
-    public String getSpecialty() {
-        return specialty;
-    }
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
-    }
     private String specialty;
-    public String getContactNumber() {
-        return contactNumber;
-    }
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
     private String contactNumber;
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
     private String email;
-    public int getYearsOfExperience() {
-        return yearsOfExperience;
-    }
-    public void setYearsOfExperience(int yearsOfExperience) {
-        this.yearsOfExperience = yearsOfExperience;
-    }
+    private int yearsOfExperience;
+
     public Doctor() {
     }
+
     public Doctor(int doctorId, String fullName, String specialty, String contactNumber, String email,
             int yearsOfExperience) {
         this.doctorId = doctorId;
@@ -53,6 +21,67 @@ public class Doctor {
         this.email = email;
         this.yearsOfExperience = yearsOfExperience;
     }
-    private int yearsOfExperience;
+    
+    public int getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(String specialty) {
+        this.specialty = specialty;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getYearsOfExperience() {
+        return yearsOfExperience;
+    }
+
+    public void setYearsOfExperience(int yearsOfExperience) {
+        this.yearsOfExperience = yearsOfExperience;
+    }
+
+    @Override
+    public int compareTo(Doctor o) {
+        return Integer.compare(this.getYearsOfExperience(), o.getYearsOfExperience());
+    }
+
+    @Override
+    public String toString() {
+        return "Doctor [doctorId=" + doctorId + ", fullName=" + fullName + ", specialty=" + specialty
+                + ", contactNumber=" + contactNumber + ", email=" + email + ", yearsOfExperience=" + yearsOfExperience
+                + "]";
+    }
+
+    
 
 }
