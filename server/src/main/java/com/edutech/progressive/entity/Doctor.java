@@ -1,16 +1,16 @@
 package com.edutech.progressive.entity;
 
-// import javax.persistence.Entity;
-// import javax.persistence.GeneratedValue;
-// import javax.persistence.GenerationType;
-// import javax.persistence.Id;
-// import javax.persistence.Table;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-// @Entity
-// @Table(name = "doctor")
+@Entity
+@Table(name = "doctor")
 public class Doctor implements Comparable<Doctor> {
-    // @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int doctorId;
     private String fullName;
     private String specialty;
