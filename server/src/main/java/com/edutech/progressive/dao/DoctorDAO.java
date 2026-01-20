@@ -2,16 +2,13 @@ package com.edutech.progressive.dao;
 
 import com.edutech.progressive.entity.Doctor;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface DoctorDAO {
-    public int addDoctor(Doctor doctor);
-
-    public Doctor getDoctorById(int doctorId);
-
-    public void updateDoctor(Doctor doctor);
-
-    public void deleteDoctor(int doctorId);
-
-    public List<Doctor> getAllDoctors();
+    int addDoctor(Doctor doctor) throws SQLException;
+    Doctor getDoctorById(int doctorId) throws SQLException;
+    void updateDoctor(Doctor doctor) throws SQLException;
+    void deleteDoctor(int doctorId) throws SQLException ;
+    List<Doctor> getAllDoctors() throws SQLException;
 }

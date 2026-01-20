@@ -1,6 +1,17 @@
 package com.edutech.progressive.entity;
 
+// import javax.persistence.Entity;
+// import javax.persistence.GeneratedValue;
+// import javax.persistence.GenerationType;
+// import javax.persistence.Id;
+// import javax.persistence.Table;
+
+// @Entity
+// @Table(name = "clinic")
 public class Clinic {
+    // @Id
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int clinicId;
     private String clinicName;
     private String location;
@@ -8,11 +19,11 @@ public class Clinic {
     private String contactNumber;
     private int establishedYear;
 
-    public Clinic() {
+    public Clinic(){
+
     }
 
-    public Clinic(int clinicId, String clinicName, String location, int doctorId, String contactNumber,
-            int establishedYear) {
+    public Clinic(int clinicId, String clinicName, String location, int doctorId, String contactNumber, int establishedYear){
         this.clinicId = clinicId;
         this.clinicName = clinicName;
         this.location = location;
