@@ -2,6 +2,7 @@ package com.edutech.progressive.controller;
 
 import com.edutech.progressive.entity.Patient;
 import com.edutech.progressive.service.impl.PatientServiceImplArraylist;
+import com.edutech.progressive.service.impl.PatientServiceImplJpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,33 +20,75 @@ import java.util.List;
 @RestController
 @RequestMapping("/patient")
 public class PatientController {
+
+    @Autowired
+    private PatientServiceImplJpa patientServiceImplJpa;
+
     @Autowired
     PatientServiceImplArraylist patientServiceImplArraylist;
+    
+    
+    // public PatientController(PatientServiceImplJpa patientServiceImplJpa,
+    //         PatientServiceImplArraylist patientServiceImplArraylist) {
+    //     this.patientServiceImplJpa = patientServiceImplJpa;
+    //     this.patientServiceImplArraylist = patientServiceImplArraylist;
+    // }    
 
     @GetMapping
     public ResponseEntity<List<Patient>> getAllPatients() {
-        return null;
+        try {
+            return new ResponseEntity<List<Patient>>(patientServiceImplJpa.getAllPatients(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
 
     @GetMapping("/{patientId}")
     public ResponseEntity<Patient> getPatientById(@PathVariable int patientId) {
-        return null;
+        try {
+            Patient patient = patientServiceImplJpa.getPatientById(patientId);
+            return new ResponseEntity<Patient>(patient, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping
     public ResponseEntity<Integer> addPatient(@RequestBody Patient patient) {
-        return null;
+        try {
+            return new ResponseEntity<Integer>(patientServiceImplJpa.addPatient(patient), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
+    // public ResponseEntity<List<Patient>> getAllPatientSortedByName() throws Exception{
+    //     try {
+    //         return new ResponseEntity<List<Patient>>(patientServiceImplJpa.getAllPatientSortedByName(), HttpStatus.OK);
+    //     } catch (Exception e) {
+    //         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    // }
 
     @PutMapping("/{patientId}")
     public ResponseEntity<Void> updatePatient(@PathVariable int patientId,@RequestBody Patient patient) {
-
-        return null;
+        try {
+            patientServiceImplJpa.updatePatient(patient);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/{patientId}")
     public ResponseEntity<Void> deletePatient(@PathVariable int patientId) {
-        return null;
+        try {
+            patientServiceImplJpa.deletePatient(patientId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/fromArrayList")
@@ -62,6 +105,7 @@ public class PatientController {
          catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        // return null;
     }
 
     @GetMapping("/fromArrayList/sorted")
@@ -69,7 +113,7 @@ public class PatientController {
         try {
             return new ResponseEntity<List<Patient>>(patientServiceImplArraylist.getAllPatientSortedByName(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

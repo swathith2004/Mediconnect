@@ -21,5 +21,4 @@ public interface ClinicService {
     default public List<Clinic> getAllClinicByLocation(String location) { return null; }
  
     default public List<Clinic> getAllClinicByDoctorId(int doctorId){ return null; }
-
 }

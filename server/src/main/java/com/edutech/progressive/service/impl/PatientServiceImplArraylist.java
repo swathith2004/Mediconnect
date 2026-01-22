@@ -12,7 +12,7 @@ import com.edutech.progressive.service.PatientService;
 @Service
 public class PatientServiceImplArraylist implements PatientService {
     private static List<Patient> patientList = new ArrayList<>();
-
+    
     @Override
     public List<Patient> getAllPatients() {
         return patientList;
@@ -20,19 +20,17 @@ public class PatientServiceImplArraylist implements PatientService {
 
     @Override
     public Integer addPatient(Patient patient) {
-        if (patientList.add(patient)) {
-            return patient.getPatientId();
-        } else {
-            return -1;
-        }
+        patientList.add(patient);
+        return patient.getPatientId();
     }
 
     @Override
     public List<Patient> getAllPatientSortedByName() {
-        Collections.sort(patientList,nameComparator);
+        Collections.sort(patientList, NameComparator);
         return patientList;
     }
-    public static Comparator<Patient> nameComparator=new Comparator<Patient>() {
+
+    public static Comparator<Patient> NameComparator = new Comparator<Patient>() {
 
         @Override
         public int compare(Patient arg0, Patient arg1) {
@@ -41,8 +39,7 @@ public class PatientServiceImplArraylist implements PatientService {
         
     };
 
-    @Override
-    public void emptyArrayList() {
+    public void emptyArrayList(){
         patientList.clear();
     }
 
