@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.edutech.progressive.config.DatabaseConnectionManager;
 import com.edutech.progressive.entity.Clinic;
+import com.edutech.progressive.entity.Doctor;
 
 public class ClinicDAOImpl implements ClinicDAO {
 
@@ -28,7 +29,9 @@ public class ClinicDAOImpl implements ClinicDAO {
             ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, clinic.getClinicName());
             ps.setString(2, clinic.getLocation());
-            ps.setInt(3, clinic.getDoctorId());
+
+            ps.setInt(3, clinic.getDoctor().getDoctorId());
+            
             ps.setString(4, clinic.getContactNumber());
             ps.setInt(5, clinic.getEstablishedYear());
 
@@ -78,7 +81,12 @@ public class ClinicDAOImpl implements ClinicDAO {
                 c.setClinicId(clinicId);
                 c.setClinicName(rs.getString("clinic_name"));
                 c.setLocation(rs.getString("location"));
-                c.setDoctorId(rs.getInt("doctor_id"));
+
+                int doctorId = rs.getInt("doctor_id");
+                Doctor d = new Doctor();
+                d.setDoctorId(doctorId);
+                c.setDoctor(d);
+
                 c.setContactNumber(rs.getString("contact_number"));
                 c.setEstablishedYear(rs.getInt("established_year"));
 
@@ -108,7 +116,9 @@ public class ClinicDAOImpl implements ClinicDAO {
             
             ps.setString(1, clinic.getClinicName());
             ps.setString(2, clinic.getLocation());
-            ps.setInt(3, clinic.getDoctorId());
+
+            ps.setInt(3, clinic.getDoctor().getDoctorId());
+
             ps.setString(4, clinic.getContactNumber());
             ps.setInt(5, clinic.getEstablishedYear());
             ps.setInt(6, clinic.getClinicId());
@@ -138,18 +148,10 @@ public class ClinicDAOImpl implements ClinicDAO {
             ps = connection.prepareStatement(query);
             ps.setInt(1, clinicId);
             ps.executeUpdate();
-            // int rows = ps.executeUpdate();
-            // System.out.println(rows);
-            // if(rows == 0){
-            //     throw new SQLException("Record not found");
-            // }
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;
         }
-        // catch(Exception e){
-        //     throw new SQLException("Unexpected error", e);
-        // }
         finally{
             closeQuietly(ps);
             closeQuietly(connection);
@@ -175,7 +177,12 @@ public class ClinicDAOImpl implements ClinicDAO {
                 c.setClinicId(clinicId);
                 c.setClinicName(rs.getString("clinic_name"));
                 c.setLocation(rs.getString("location"));
-                c.setDoctorId(rs.getInt("doctor_id"));
+
+                int doctorId = rs.getInt("doctor_id");
+                Doctor d = new Doctor();
+                d.setDoctorId(doctorId);
+                c.setDoctor(d);
+
                 c.setContactNumber(rs.getString("contact_number"));
                 c.setEstablishedYear(rs.getInt("established_year"));
 
