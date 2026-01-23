@@ -26,13 +26,6 @@ public class PatientController {
 
     @Autowired
     PatientServiceImplArraylist patientServiceImplArraylist;
-    
-    
-    // public PatientController(PatientServiceImplJpa patientServiceImplJpa,
-    //         PatientServiceImplArraylist patientServiceImplArraylist) {
-    //     this.patientServiceImplJpa = patientServiceImplJpa;
-    //     this.patientServiceImplArraylist = patientServiceImplArraylist;
-    // }    
 
     @GetMapping
     public ResponseEntity<List<Patient>> getAllPatients() {
@@ -62,14 +55,6 @@ public class PatientController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    // public ResponseEntity<List<Patient>> getAllPatientSortedByName() throws Exception{
-    //     try {
-    //         return new ResponseEntity<List<Patient>>(patientServiceImplJpa.getAllPatientSortedByName(), HttpStatus.OK);
-    //     } catch (Exception e) {
-    //         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
 
     @PutMapping("/{patientId}")
     public ResponseEntity<Void> updatePatient(@PathVariable int patientId,@RequestBody Patient patient) {
