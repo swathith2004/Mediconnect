@@ -16,6 +16,8 @@ public interface ClinicRepository extends JpaRepository<Clinic, Integer> {
 
     List<Clinic> findAllByLocation(String location);
 
+    Clinic findByClinicName(String clinicName);
+
     @Query("SELECT c FROM Clinic c WHERE c.doctor.doctorId = :doctorId")
     List<Clinic> findAllByDoctorId(int doctorId);
 

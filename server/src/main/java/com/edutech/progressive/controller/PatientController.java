@@ -1,6 +1,8 @@
 package com.edutech.progressive.controller;
 
 import com.edutech.progressive.entity.Patient;
+import com.edutech.progressive.exception.PatientAlreadyExistsException;
+import com.edutech.progressive.exception.PatientNotFoundException;
 import com.edutech.progressive.service.impl.PatientServiceImplArraylist;
 import com.edutech.progressive.service.impl.PatientServiceImplJpa;
 
@@ -42,16 +44,22 @@ public class PatientController {
         try {
             Patient patient = patientServiceImplJpa.getPatientById(patientId);
             return new ResponseEntity<Patient>(patient, HttpStatus.OK);
-        } catch (Exception e) {
+        }catch(PatientNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } 
+        catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        } 
     }
 
     @PostMapping
     public ResponseEntity<Integer> addPatient(@RequestBody Patient patient) {
         try {
             return new ResponseEntity<Integer>(patientServiceImplJpa.addPatient(patient), HttpStatus.OK);
-        } catch (Exception e) {
+        } catch(PatientAlreadyExistsException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } 
+        catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -61,7 +69,11 @@ public class PatientController {
         try {
             patientServiceImplJpa.updatePatient(patient);
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
+        }
+        catch(PatientAlreadyExistsException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } 
+        catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

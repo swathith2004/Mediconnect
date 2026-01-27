@@ -8,4 +8,6 @@ import com.edutech.progressive.entity.Doctor;
 public interface DoctorRepository extends JpaRepository<Doctor, Integer>{
 
     Doctor findByDoctorId(int doctorId);
+
+    Doctor findByEmail(String email);
 }

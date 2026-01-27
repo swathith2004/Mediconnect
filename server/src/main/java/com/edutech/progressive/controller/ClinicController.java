@@ -1,6 +1,7 @@
 package com.edutech.progressive.controller;
 
 import com.edutech.progressive.entity.Clinic;
+import com.edutech.progressive.exception.ClinicAlreadyExistsException;
 import com.edutech.progressive.service.impl.ClinicServiceImplJpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,10 @@ public class ClinicController {
     public ResponseEntity<Integer> addClinic(@RequestBody Clinic clinic) {
         try {
             return new ResponseEntity<Integer>(clinicServiceImplJpa.addClinic(clinic), HttpStatus.CREATED);
-        } catch (Exception e) {
+        }catch(ClinicAlreadyExistsException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } 
+        catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -60,7 +64,11 @@ public class ClinicController {
             clinic.setClinicId(clinicId);
             clinicServiceImplJpa.updateClinic(clinic);
             return new ResponseEntity<Void>(HttpStatus.OK);
-        } catch (Exception e) {
+        }
+        catch(ClinicAlreadyExistsException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }  
+        catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

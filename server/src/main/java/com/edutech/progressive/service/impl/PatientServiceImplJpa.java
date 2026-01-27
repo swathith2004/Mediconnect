@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edutech.progressive.entity.Patient;
+import com.edutech.progressive.exception.PatientAlreadyExistsException;
+import com.edutech.progressive.exception.PatientNotFoundException;
 import com.edutech.progressive.repository.PatientRepository;
 import com.edutech.progressive.service.PatientService;
 
@@ -29,6 +31,10 @@ public class PatientServiceImplJpa implements PatientService {
 
     @Override
     public Integer addPatient(Patient patient) throws Exception {
+        Patient existingPatient = patientRepository.findByEmail(patient.getEmail());
+        if(existingPatient != null){
+            throw new PatientAlreadyExistsException("Patient already exists");
+        }
         return patientRepository.save(patient).getPatientId();
     }
 
@@ -40,6 +46,10 @@ public class PatientServiceImplJpa implements PatientService {
     }
 
     public void updatePatient(Patient patient) throws Exception {
+        Patient existingPatient = patientRepository.findByEmail(patient.getEmail());
+        if(existingPatient != null){
+            throw new PatientAlreadyExistsException("Patient already exists");
+        }
         Patient patientObj = patientRepository.findById(patient.getPatientId()).get();
         if (patientObj != null) {
             patientObj.setFullName(patient.getFullName());
@@ -59,6 +69,9 @@ public class PatientServiceImplJpa implements PatientService {
     }
 
     public Patient getPatientById(int patientId) throws Exception {
+        if(!patientRepository.existsById(patientId)){
+            throw new PatientNotFoundException("Patient not found");
+        }
         return patientRepository.findByPatientId(patientId);
     }
 

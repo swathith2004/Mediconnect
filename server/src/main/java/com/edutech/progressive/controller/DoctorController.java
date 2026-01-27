@@ -1,6 +1,7 @@
 package com.edutech.progressive.controller;
 
 import com.edutech.progressive.entity.Doctor;
+import com.edutech.progressive.exception.DoctorAlreadyExistsException;
 import com.edutech.progressive.service.impl.DoctorServiceImplJpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,11 @@ public class DoctorController {
     public ResponseEntity<Integer> addDoctor(@RequestBody Doctor doctor) {
         try {
             return new ResponseEntity<Integer>(doctorServiceImplJpa.addDoctor(doctor), HttpStatus.CREATED);
-        } catch (Exception e) {
+        } 
+        catch(DoctorAlreadyExistsException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -57,7 +62,11 @@ public class DoctorController {
             doctor.setDoctorId(doctorId);
             doctorServiceImplJpa.updateDoctor(doctor);
             return new ResponseEntity<Void>(HttpStatus.OK);
-        } catch (Exception e) {
+        }
+        catch(DoctorAlreadyExistsException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
