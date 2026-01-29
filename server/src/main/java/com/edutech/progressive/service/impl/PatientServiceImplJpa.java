@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.edutech.progressive.entity.Patient;
 import com.edutech.progressive.exception.PatientAlreadyExistsException;
 import com.edutech.progressive.exception.PatientNotFoundException;
+import com.edutech.progressive.repository.BillingRepository;
 import com.edutech.progressive.repository.PatientRepository;
 import com.edutech.progressive.service.PatientService;
 
@@ -18,6 +19,9 @@ import com.edutech.progressive.service.PatientService;
 public class PatientServiceImplJpa implements PatientService {
 
     private PatientRepository patientRepository;
+
+    @Autowired
+    private BillingRepository billingRepository;
 
     @Autowired
     public PatientServiceImplJpa(PatientRepository patientRepository) {
@@ -32,7 +36,7 @@ public class PatientServiceImplJpa implements PatientService {
     @Override
     public Integer addPatient(Patient patient) throws Exception {
         Patient existingPatient = patientRepository.findByEmail(patient.getEmail());
-        if(existingPatient != null){
+        if (existingPatient != null) {
             throw new PatientAlreadyExistsException("Patient already exists");
         }
         return patientRepository.save(patient).getPatientId();
@@ -47,7 +51,7 @@ public class PatientServiceImplJpa implements PatientService {
 
     public void updatePatient(Patient patient) throws Exception {
         Patient existingPatient = patientRepository.findByEmail(patient.getEmail());
-        if(existingPatient != null){
+        if (existingPatient != null) {
             throw new PatientAlreadyExistsException("Patient already exists");
         }
         Patient patientObj = patientRepository.findById(patient.getPatientId()).get();
@@ -63,13 +67,12 @@ public class PatientServiceImplJpa implements PatientService {
     }
 
     public void deletePatient(int patientId) throws Exception {
-        // if(patientRepository.existsById(patientId)){
-            patientRepository.deleteById(patientId);
-        // }
+        billingRepository.deleteByPatientId(patientId);
+        patientRepository.deleteById(patientId);
     }
 
     public Patient getPatientById(int patientId) throws Exception {
-        if(!patientRepository.existsById(patientId)){
+        if (!patientRepository.existsById(patientId)) {
             throw new PatientNotFoundException("Patient not found");
         }
         return patientRepository.findByPatientId(patientId);
